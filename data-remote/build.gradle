@@ -48,13 +48,13 @@ dependencies {
 
 
     //Dagger Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
+    api "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     //Retrofit 2
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     //Moshi
-    api "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    api "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     //OkHttp
     api "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 }
