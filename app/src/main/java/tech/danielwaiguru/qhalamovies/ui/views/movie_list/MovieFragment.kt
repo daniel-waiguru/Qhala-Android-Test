@@ -11,7 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import tech.danielwaiguru.domain.repository.MovieRepository
 import tech.danielwaiguru.domain.use_cases.GetPopularMovieUseCase
 import tech.danielwaiguru.qhalamovies.R
+import tech.danielwaiguru.qhalamovies.common.extensions.gone
 import tech.danielwaiguru.qhalamovies.common.extensions.showToast
+import tech.danielwaiguru.qhalamovies.common.extensions.visible
 import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieBinding
 import tech.danielwaiguru.qhalamovies.models.ResultWrapper
 import tech.danielwaiguru.qhalamovies.ui.adapter.MovieAdapter
@@ -43,19 +45,23 @@ class MovieFragment : Fragment() {
         subscribers()
     }
     private fun subscribers() {
-        movieViewModel.responseState.observe(viewLifecycleOwner, { responseState ->
-            when (responseState) {
-                is ResultWrapper.Success -> {
-                    movieAdapter.submitList(responseState.data)
-                    binding.moviesRv.adapter = movieAdapter
+        with(binding) {
+            movieViewModel.responseState.observe(viewLifecycleOwner, { responseState ->
+                when (responseState) {
+                    is ResultWrapper.Success -> {
+                        loadingProgress.gone()
+                        movieAdapter.submitList(responseState.data)
+                        moviesRv.adapter = movieAdapter
+                    }
+                    is ResultWrapper.Loading -> {
+                        loadingProgress.visible()
+                    }
+                    is ResultWrapper.Error -> {
+                        loadingProgress.gone()
+                        requireContext().showToast(responseState.errorMessage.toString())
+                    }
                 }
-                is ResultWrapper.Loading -> {
-
-                }
-                is ResultWrapper.Error -> {
-                    requireContext().showToast(responseState.errorMessage.toString())
-                }
-            }
-        })
+            })
+        }
     }
 }

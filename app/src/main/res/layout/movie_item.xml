@@ -5,53 +5,68 @@
     >
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="8dp"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        android:paddingBottom="@dimen/padding"
+        android:layout_margin="@dimen/margin_small"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/moviePoster"
-                android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:scaleType="fitXY"
-                android:layout_margin="@dimen/margin"
-                tools:src="@drawable/ic_launcher_background"
-                android:contentDescription="@string/movie_poster_image"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/posterCard"
+                app:cardCornerRadius="@dimen/card_corner_radius"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/moviePoster"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:scaleType="fitXY"
+                    tools:src="@drawable/ic_launcher_background"
+                    android:contentDescription="@string/movie_poster_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+            </com.google.android.material.card.MaterialCardView>
             <TextView
                 android:id="@+id/movieTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/moviePoster"
+                app:layout_constraintTop_toTopOf="@id/posterCard"
+                app:layout_constraintStart_toEndOf="@id/posterCard"
                 tools:text="Mortal Kombat"
-                style="@style/TextAppearance.MaterialComponents.Headline4"
-                android:layout_margin="@dimen/margin"
+                android:singleLine="true"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
                 />
             <TextView
-                android:id="@+id/movieGenre"
+                android:id="@+id/movieDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movieTitle"
-                app:layout_constraintStart_toEndOf="@id/moviePoster"
+                app:layout_constraintStart_toEndOf="@id/posterCard"
                 tools:text="Mortal Kombat"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginEnd="@dimen/margin"
                 android:layout_marginBottom="@dimen/margin"
                 />
             <com.google.android.material.chip.ChipGroup
-                android:layout_margin="@dimen/margin"
-                app:layout_constraintTop_toBottomOf="@id/movieGenre"
-                app:layout_constraintStart_toEndOf="@id/moviePoster"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                app:layout_constraintTop_toBottomOf="@id/movieDate"
+                app:layout_constraintStart_toEndOf="@id/posterCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

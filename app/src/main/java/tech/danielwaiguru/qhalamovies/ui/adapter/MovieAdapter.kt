@@ -19,7 +19,7 @@ class MovieAdapter: ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindMovieItem(getItem(position))
+        holder.bindMovieItem(getItem(position), holder.itemView.context)
     }
 
     object MovieDiffCallback: DiffUtil.ItemCallback<Movie>() {

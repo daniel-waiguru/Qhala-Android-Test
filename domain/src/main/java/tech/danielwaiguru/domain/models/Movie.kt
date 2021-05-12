@@ -12,7 +12,8 @@ data class Movie(
     val poster: String,
     val title: String,
     val voteCount: Int,
-    val voteAverage: Double
+    val voteAverage: Double,
+    val releaseDate: String
 ){
     val posterPath
     get() = "$IMAGE_PREFIX${poster}"
