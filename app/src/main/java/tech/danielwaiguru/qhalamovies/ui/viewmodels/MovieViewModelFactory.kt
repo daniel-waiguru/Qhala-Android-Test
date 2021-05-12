@@ -11,7 +11,7 @@ class MovieViewModelFactory(
             modelClass.isAssignableFrom(MovieViewModel::class.java) -> {
                 MovieViewModel(popularMovieUseCase) as T
             }
-            else -> throw IllegalArgumentException("Unknown exception class")
+            else -> throw IllegalArgumentException("Unknown MovieViewModel class")
         }
     }
 }

@@ -1,127 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.views.movie_details.MovieDetailsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/largerPoster"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/colorPrimary"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".35"
-        app:layout_constraintGuide_begin="20dp" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".30"
-        app:layout_constraintGuide_begin="20dp" />
+    <data>
+        <variable
+            name="detailModel"
+            type="tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieDetailViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/details_layout"
-        android:background="@drawable/detail_layout_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guide"
-        >
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/posterCard"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/margin_start"
-            app:layout_constraintTop_toTopOf="@id/details_layout"
-            app:layout_constraintBottom_toTopOf="@id/details_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/moviePoster"
-                android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:scaleType="fitXY"
-                tools:src="@drawable/ic_launcher_background"
-                android:contentDescription="@string/movie_poster_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-        </com.google.android.material.card.MaterialCardView>
-        <TextView
-            android:id="@+id/movieTitle"
-            android:layout_width="0dp"
-            tools:text="Motor Combat"
-            android:layout_margin="@dimen/margin"
-            android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        tools:context=".ui.views.movie_details.MovieDetailsFragment">
+
+        <ImageView
+            android:id="@+id/largerPoster"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/posterCard"
+            android:background="@color/colorPrimary"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
-        <com.google.android.material.chip.ChipGroup
-            android:layout_marginStart="@dimen/margin"
-            android:layout_marginEnd="@dimen/margin"
-            app:layout_constraintTop_toBottomOf="@id/movieTitle"
-            app:layout_constraintStart_toEndOf="@id/posterCard"
+            android:contentDescription="@string/movie_poster_image" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/chipGroup"
-            >
-            <com.google.android.material.chip.Chip
-                android:id="@+id/voteCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/popularity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-        </com.google.android.material.chip.ChipGroup>
-        <RatingBar
-            android:id="@+id/ratingBar"
+            app:layout_constraintGuide_percent=".35"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/posterCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chipGroup"
-            />
-        <TextView
-            android:id="@+id/overviewTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/overview"
-            android:layout_margin="@dimen/margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ratingBar"
-            android:textAlignment="center"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/overviewTitle"
-            android:layout_margin="@dimen/margin"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:textSize="@dimen/text_size"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".30"
+            app:layout_constraintGuide_begin="20dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/details_layout"
+            android:background="@drawable/detail_layout_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guide">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/posterCard"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_start"
+                app:layout_constraintTop_toTopOf="@id/details_layout"
+                app:layout_constraintBottom_toTopOf="@id/details_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/moviePoster"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:scaleType="fitXY"
+                    tools:src="@drawable/ic_launcher_background"
+                    android:contentDescription="@string/movie_poster_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/movieTitle"
+                android:layout_width="0dp"
+                tools:text="Motor Combat"
+                android:layout_margin="@dimen/margin"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/posterCard"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                app:layout_constraintTop_toBottomOf="@id/movieTitle"
+                app:layout_constraintStart_toEndOf="@id/posterCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/chipGroup">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/voteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/popularity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/posterCard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chipGroup" />
+
+            <TextView
+                android:id="@+id/overviewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/overview"
+                android:layout_margin="@dimen/margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ratingBar"
+                android:textAlignment="center"
+                style="@style/TextAppearance.MaterialComponents.Headline5" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/overviewTitle"
+                android:layout_margin="@dimen/margin"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="@dimen/text_size" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
