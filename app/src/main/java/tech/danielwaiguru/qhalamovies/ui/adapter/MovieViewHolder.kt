@@ -11,7 +11,7 @@ class MovieViewHolder(private val binding: MovieItemBinding): RecyclerView.ViewH
     fun bindMovieItem(movie: Movie, context: Context) {
         with(binding) {
             movieTitle.text = movie.title
-            movieDate.text = movie.releaseDate
+            movieDate.text = context.getString(R.string.release_date, movie.releaseDate)
             this.voteCount.text = context.getString(R.string.ratings, movie.voteAverage.toString())
             this.popularity.text = context.getString(R.string.language, movie.language)
             moviePoster.loadImage(movie.posterPath)
