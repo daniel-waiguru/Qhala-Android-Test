@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import tech.danielwaiguru.domain.models.Movie
 import tech.danielwaiguru.qhalamovies.R
 
-class MovieAdapter: ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
+class MovieAdapter(
+    private val clickListener: MovieClickListener): ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             DataBindingUtil.inflate(
@@ -19,7 +20,11 @@ class MovieAdapter: ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindMovieItem(getItem(position), holder.itemView.context)
+        val movie = getItem(position)
+        holder.bindMovieItem(movie, holder.itemView.context)
+        holder.itemView.setOnClickListener {
+            clickListener.onMovieClicked(movie.id)
+        }
     }
 
     object MovieDiffCallback: DiffUtil.ItemCallback<Movie>() {
@@ -31,5 +36,8 @@ class MovieAdapter: ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
             return oldItem == newItem
         }
 
+    }
+    interface MovieClickListener {
+        fun onMovieClicked(mId: Int)
     }
 }

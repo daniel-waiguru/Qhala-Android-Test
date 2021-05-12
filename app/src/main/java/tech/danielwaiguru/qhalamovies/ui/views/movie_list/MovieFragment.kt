@@ -1,15 +1,14 @@
 package tech.danielwaiguru.qhalamovies.ui.views.movie_list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import tech.danielwaiguru.domain.repository.MovieRepository
-import tech.danielwaiguru.domain.use_cases.GetPopularMovieUseCase
 import tech.danielwaiguru.qhalamovies.R
 import tech.danielwaiguru.qhalamovies.common.extensions.gone
 import tech.danielwaiguru.qhalamovies.common.extensions.showToast
@@ -22,11 +21,11 @@ import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieViewModelFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MovieFragment : Fragment() {
+class MovieFragment : Fragment(),MovieAdapter.MovieClickListener {
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
     private val movieAdapter: MovieAdapter by lazy {
-        MovieAdapter()
+        MovieAdapter(this)
     }
     @Inject
     lateinit var movieViewModelFactory: MovieViewModelFactory
@@ -63,5 +62,15 @@ class MovieFragment : Fragment() {
                 }
             })
         }
+    }
+
+    override fun onMovieClicked(mId: Int) {
+        navToDetailsScreen(mId)
+    }
+
+    private fun navToDetailsScreen(mId: Int) {
+        findNavController().navigate(
+            MovieFragmentDirections.actionMovieFragmentToMovieDetailsFragment(mId)
+        )
     }
 }

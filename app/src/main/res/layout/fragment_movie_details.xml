@@ -5,12 +5,13 @@
 
     <data>
         <variable
-            name="detailModel"
-            type="tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieDetailViewModel" />
+            name="movie"
+            type="tech.danielwaiguru.domain.models.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:fitsSystemWindows="false"
         android:layout_height="match_parent"
         tools:context=".ui.views.movie_details.MovieDetailsFragment">
 
@@ -18,6 +19,9 @@
             android:id="@+id/largerPoster"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:scaleType="fitXY"
+            android:alpha="0.3"
+            app:loadImageFromUrl="@{movie.posterPath}"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/colorPrimary"
@@ -31,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".35"
+            app:layout_constraintGuide_percent=".45"
             app:layout_constraintGuide_begin="20dp" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -39,66 +43,77 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".30"
-            app:layout_constraintGuide_begin="20dp" />
+            app:layout_constraintGuide_begin="131dp"
+            app:layout_constraintGuide_percent=".30" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/details_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/details_layout"
             android:background="@drawable/detail_layout_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/guide">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/posterCard"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_start"
-                app:layout_constraintTop_toTopOf="@id/details_layout"
-                app:layout_constraintBottom_toTopOf="@id/details_layout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                android:layout_marginTop="@dimen/margin"
+                app:cardElevation="@dimen/card_elevation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/details_layout">
 
                 <ImageView
                     android:id="@+id/moviePoster"
                     android:layout_width="100dp"
-                    android:layout_height="120dp"
-                    android:scaleType="fitXY"
-                    tools:src="@drawable/ic_launcher_background"
+                    android:layout_height="140dp"
                     android:contentDescription="@string/movie_poster_image"
+                    android:scaleType="fitXY"
+                    app:loadImageFromUrl="@{movie.posterPath}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    tools:src="@drawable/ic_launcher_background" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/movieTitle"
                 android:layout_width="0dp"
-                tools:text="Motor Combat"
-                android:layout_margin="@dimen/margin"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
+                android:text="@{movie.title}"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/posterCard"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Motor Combat" />
 
             <com.google.android.material.chip.ChipGroup
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                app:layout_constraintTop_toBottomOf="@id/movieTitle"
-                app:layout_constraintStart_toEndOf="@id/posterCard"
+                android:id="@+id/chipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin"
                 android:orientation="horizontal"
-                android:id="@+id/chipGroup">
+                app:layout_constraintStart_toEndOf="@id/posterCard"
+                app:layout_constraintTop_toBottomOf="@id/movieTitle">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/voteCount"
+                    android:text="@{String.format(@string/vote_count, movie.voteCount)}"
+                    android:clickable="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/popularity"
+                    android:clickable="false"
+                    android:text="@{String.format(@string/release_date, movie.releaseDate)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </com.google.android.material.chip.ChipGroup>
@@ -107,31 +122,61 @@
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:max="10"
+                android:progressTint="@color/ratingColor"
+                style="?android:ratingBarStyleSmall"
+                android:rating="@{Float.valueOf(Double.toString(movie.voteAverage))}"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
                 app:layout_constraintStart_toEndOf="@id/posterCard"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chipGroup" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/ratingColor"
+                android:text="@{Double.toString(movie.voteAverage)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ratingBar"
+                app:layout_constraintBottom_toBottomOf="@id/ratingBar"
+                app:layout_constraintStart_toEndOf="@id/ratingBar"
+                tools:text="6.9"
+                />
             <TextView
                 android:id="@+id/overviewTitle"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/overview"
                 android:layout_margin="@dimen/margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ratingBar"
+                android:text="@string/overview"
                 android:textAlignment="center"
-                style="@style/TextAppearance.MaterialComponents.Headline5" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ratingBar" />
 
             <TextView
+                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/overviewTitle"
                 android:layout_margin="@dimen/margin"
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:textSize="@dimen/text_size" />
+                android:textSize="@dimen/text_size"
+                android:text="@{movie.overview}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/overviewTitle" />
+
+            <ProgressBar
+                android:id="@+id/loadingProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
