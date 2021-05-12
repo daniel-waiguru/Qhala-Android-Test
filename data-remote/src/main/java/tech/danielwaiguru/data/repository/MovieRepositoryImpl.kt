@@ -22,4 +22,10 @@ class MovieRepositoryImpl @Inject constructor(
             emit(response)
         }.flowOn(Dispatchers.IO)
     }
+
+    override suspend fun getMovieDetails(mId: Int): Flow<Movie> {
+        return flow {
+            emit(apiService.getMovieDetails(mId = mId).toDomain())
+        }.flowOn(Dispatchers.IO)
+    }
 }
