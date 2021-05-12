@@ -1,7 +1,8 @@
-package tech.danielwaiguru.qhalamovies
+package tech.danielwaiguru.qhalamovies.ui.views.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import tech.danielwaiguru.qhalamovies.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

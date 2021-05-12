@@ -9,5 +9,6 @@ data class Movie(
     val popularity: Double,
     val poster: String,
     val title: String,
-    val voteCount: Int
+    val voteCount: Int,
+    val voteAverage: Double
 )

@@ -14,6 +14,7 @@ internal fun MovieDto.toDomain(): Movie {
         this.popularity,
         this.posterPath,
         this.title,
-        this.voteCount
+        this.voteCount,
+        this.voteAverage
     )
 }

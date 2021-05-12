@@ -6,15 +6,18 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import tech.danielwaiguru.data.api.MovieApiService
 import tech.danielwaiguru.data.mappers.toDomain
+import tech.danielwaiguru.data_local.dao.MovieDao
 import tech.danielwaiguru.domain.models.Movie
 import tech.danielwaiguru.domain.repository.MovieRepository
 
-class MovieRepositoryImpl(private val apiService: MovieApiService): MovieRepository {
+class MovieRepositoryImpl(
+        private val apiService: MovieApiService, private val movieDao: MovieDao): MovieRepository {
     override suspend fun getPopularMovies(): Flow<List<Movie>> {
         return flow {
             val response = apiService.getPopularMovies().results.map { movieDto ->
                 movieDto.toDomain()
             }
+            movieDao.storeMovies(response)
             emit(response)
         }.flowOn(Dispatchers.IO)
     }
