@@ -1,21 +1,24 @@
 package tech.danielwaiguru.data_local.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import tech.danielwaiguru.data_local.models.MovieEntity
 import tech.danielwaiguru.domain.models.Movie
 
+@Dao
 interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun storeMovies(movies: List<Movie>)
+    suspend fun storeMovies(movies: List<MovieEntity>)
 
     @Query("SELECT * FROM movies")
-    suspend fun getAllMovies(): Flow<List<Movie>>
+    fun getAllMovies(): Flow<List<MovieEntity>>
 
     /**
      * Get single movie details
      */
     @Query("SELECT * FROM movies WHERE id =:mId")
-    suspend fun getMovie(mId: Int): Flow<Movie>
+    fun getMovie(mId: Int): Flow<MovieEntity>
 }

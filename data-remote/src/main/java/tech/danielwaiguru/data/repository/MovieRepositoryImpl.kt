@@ -17,7 +17,7 @@ class MovieRepositoryImpl(
             val response = apiService.getPopularMovies().results.map { movieDto ->
                 movieDto.toDomain()
             }
-            movieDao.storeMovies(response)
+            //movieDao.storeMovies(response)
             emit(response)
         }.flowOn(Dispatchers.IO)
     }
