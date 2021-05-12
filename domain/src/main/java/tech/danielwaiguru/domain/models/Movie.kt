@@ -1,5 +1,7 @@
 package tech.danielwaiguru.domain.models
 
+import tech.danielwaiguru.domain.common.Constants.IMAGE_PREFIX
+
 data class Movie(
     val adult: Boolean,
     val id: Int,
@@ -11,4 +13,7 @@ data class Movie(
     val title: String,
     val voteCount: Int,
     val voteAverage: Double
-)
+){
+    val posterPath
+    get() = "$IMAGE_PREFIX${poster}"
+}

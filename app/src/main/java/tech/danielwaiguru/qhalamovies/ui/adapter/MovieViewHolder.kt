@@ -10,7 +10,7 @@ class MovieViewHolder(private val binding: MovieItemBinding): RecyclerView.ViewH
         with(binding) {
             movieTitle.text = movie.title
             movieGenre.text = movie.originalTitle
-            moviePoster.loadImage(movie.poster)
+            moviePoster.loadImage(movie.posterPath)
         }
     }
 }
