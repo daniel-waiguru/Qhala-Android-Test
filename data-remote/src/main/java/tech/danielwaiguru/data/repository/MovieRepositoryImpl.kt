@@ -9,8 +9,9 @@ import tech.danielwaiguru.data.mappers.toDomain
 import tech.danielwaiguru.data_local.dao.MovieDao
 import tech.danielwaiguru.domain.models.Movie
 import tech.danielwaiguru.domain.repository.MovieRepository
+import javax.inject.Inject
 
-class MovieRepositoryImpl(
+class MovieRepositoryImpl @Inject constructor(
         private val apiService: MovieApiService, private val movieDao: MovieDao): MovieRepository {
     override suspend fun getPopularMovies(): Flow<List<Movie>> {
         return flow {

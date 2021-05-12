@@ -46,16 +46,16 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
-
-
-    //Dagger Hilt
-    api "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-
     //Retrofit 2
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     //Moshi
     api "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     //OkHttp
     api "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    //Dagger Hilt
+    api "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    api 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 }
