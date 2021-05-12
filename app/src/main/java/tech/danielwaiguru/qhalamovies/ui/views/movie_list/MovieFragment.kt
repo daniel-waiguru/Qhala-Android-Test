@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -30,6 +31,10 @@ class MovieFragment : Fragment(),MovieAdapter.MovieClickListener {
     @Inject
     lateinit var movieViewModelFactory: MovieViewModelFactory
     private val movieViewModel: MovieViewModel by viewModels { movieViewModelFactory }
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

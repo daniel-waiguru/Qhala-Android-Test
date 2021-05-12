@@ -6,10 +6,8 @@ import tech.danielwaiguru.domain.models.Movie
 
 internal fun MovieDto.toDomain(): Movie {
     return Movie(
-        this.adult,
         this.id,
         this.language,
-        this.originalTitle,
         this.overview,
         this.popularity,
         this.posterPath,

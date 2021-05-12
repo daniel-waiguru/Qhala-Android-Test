@@ -6,4 +6,5 @@ import tech.danielwaiguru.domain.models.Movie
 interface MovieRepository {
     suspend fun getPopularMovies(): Flow<List<Movie>>
     suspend fun getMovieDetails(mId: Int): Flow<Movie>
+    suspend fun fetCachedData(): Flow<List<Movie>>
 }

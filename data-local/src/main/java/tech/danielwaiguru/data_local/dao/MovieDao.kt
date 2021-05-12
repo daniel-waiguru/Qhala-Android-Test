@@ -14,11 +14,11 @@ interface MovieDao {
     suspend fun storeMovies(movies: List<MovieEntity>)
 
     @Query("SELECT * FROM movies")
-    fun getAllMovies(): Flow<List<MovieEntity>>
+    suspend fun getAllMovies(): List<MovieEntity>
 
     /**
      * Get single movie details
      */
     @Query("SELECT * FROM movies WHERE id =:mId")
-    fun getMovie(mId: Int): Flow<MovieEntity>
+    fun getMovie(mId: Int): MovieEntity
 }

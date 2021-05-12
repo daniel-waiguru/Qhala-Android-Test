@@ -21,6 +21,7 @@ class MovieViewModel @Inject constructor(
     val responseState: LiveData<ResultWrapper<List<Movie>>> get() = _responseState
     init {
         fetchPopularMovies()
+        fetchCachedData()
     }
     private fun fetchPopularMovies() {
         viewModelScope.launch {
@@ -35,8 +36,20 @@ class MovieViewModel @Inject constructor(
                 }
                 .collect { movies ->
                     //emit success state
-                    _responseState.value = ResultWrapper.Success(movies)
+                    //_responseState.value = ResultWrapper.Success(movies)
                 }
+        }
+    }
+    private fun fetchCachedData() {
+        viewModelScope.launch {
+            popularMovieUseCase.invoke()
+                    .catch { exception ->
+                        //emit error state
+                        _responseState.value = ResultWrapper.Error(exception.message, exception)
+                    }
+                    .collect {
+                        _responseState.value = ResultWrapper.Success(it)
+                    }
         }
     }
 }

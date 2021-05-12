@@ -6,15 +6,16 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies")
 data class MovieEntity(
-    val adult: Boolean,
     @PrimaryKey
     val id: Int,
     val language: String,
     @ColumnInfo(name = "original_title")
-    val originalTitle: String,
     val overview: String,
     val popularity: Double,
     val poster: String,
     val title: String,
-    val voteCount: Int
+    val voteCount: Int,
+    @ColumnInfo(name = "vote_average")
+    val voteAverage: Double,
+    val date: String
 )

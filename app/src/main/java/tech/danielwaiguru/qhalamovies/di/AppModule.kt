@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import tech.danielwaiguru.domain.repository.MovieRepository
+import tech.danielwaiguru.domain.use_cases.FetchLocalDataUseCase
 import tech.danielwaiguru.domain.use_cases.GetMovieDetailsUseCase
 import tech.danielwaiguru.domain.use_cases.GetPopularMovieUseCase
 import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieDetailViewModelFactory
@@ -23,6 +24,11 @@ object AppModule {
     @Provides
     fun provideGetMovieDetailUseCase(movieRepo: MovieRepository): GetMovieDetailsUseCase {
         return GetMovieDetailsUseCase(movieRepo)
+    }
+    @Singleton
+    @Provides
+    fun provideLocalDataUseCase(movieRepo: MovieRepository): FetchLocalDataUseCase {
+        return FetchLocalDataUseCase(movieRepo)
     }
     @Singleton
     @Provides
