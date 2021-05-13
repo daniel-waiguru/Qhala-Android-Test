@@ -15,8 +15,13 @@ To run the project you should have the following tools
 ### Architecture
 The app is build with MVVM clean architeture with multimodules taking into coondieration seperation for easier testing.
 
-### Screenshorts
-<img src="/art/" width="260">&emsp;<img src="/art/" width="260">
+### Screenshots
+#### Movie List
+<img src="/art/list_light.png" width="260">&emsp;<img src="/art/list_dark.png" width="260">
+
+#### Movie Details
+<img src="/art/detail_light.png" width="260">&emsp;<img src="/art/detail_dark.png" width="260">
+
 ### Libraries
 * Retrofit - A Type-safe HTTP client for android and java which simplfies consuming RESTful APIs.
 * Gson - Converts JSON to Java/Kotlin objects.
