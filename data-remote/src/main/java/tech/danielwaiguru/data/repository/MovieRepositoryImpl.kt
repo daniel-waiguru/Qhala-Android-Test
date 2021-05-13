@@ -20,7 +20,6 @@ class MovieRepositoryImpl @Inject constructor(
             val response = apiService.getPopularMovies().results.map { movieDto ->
                 movieDto.toDomain()
             }
-            movieDao.storeMovies(response.map { it.toEntity() })
             emit(response)
         }.flowOn(Dispatchers.IO)
     }
@@ -35,5 +34,10 @@ class MovieRepositoryImpl @Inject constructor(
         return flow {
             emit(movieDao.getAllMovies().map { it.toDomain() })
         }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun storeMovies(movies: List<Movie>) {
+        val entities = movies.map { it.toEntity() }
+        movieDao.storeMovies(entities)
     }
 }
