@@ -7,9 +7,7 @@ Minimum API level supported: 21
 <br>
 Build System: [Gradle](https://gradle.org/)
 
-<br>
-#### Architecture
-<br>
+####Architecture
 The app is build with MVVM clean architeture with multimodules taking into coondieration seperation for easier testing.
 
 <br>
