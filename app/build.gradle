@@ -21,12 +21,14 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField 'String', 'apiKey', API_KEY
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
         }
     }
     testOptions.unitTests {
@@ -47,6 +49,7 @@ android {
     buildFeatures {
         dataBinding true
     }
+    ndkVersion "22.1.7171670"
 }
 
 dependencies {
