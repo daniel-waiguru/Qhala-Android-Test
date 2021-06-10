@@ -32,6 +32,10 @@ The app is build with MVVM clean architeture with multimodules taking into coond
 * Data Binding - Jetpack library allowing to bind UI components to data sources
 * ViewModel - Designed to store and manage UI data in a lifecycler aware fashion.
 
-### TODO
-Write Tests
+### Unit Tests
+Unit test tests Dao, ViewModels and Repository
+<img src="/art/dao.png" width="260">&emsp;
+<img src="/art/dao_local.png" width="260">&emsp;
+
+<img src="/art/details_test.png" width="260">&emsp;
 
