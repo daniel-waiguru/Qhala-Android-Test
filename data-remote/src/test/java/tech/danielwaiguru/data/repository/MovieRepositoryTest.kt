@@ -15,6 +15,7 @@ import tech.danielwaiguru.data.BaseTest
 import tech.danielwaiguru.data_local.database.MovieDatabase
 import tech.danielwaiguru.domain.repository.MovieRepository
 
+/*
 @RunWith(RobolectricTestRunner::class)
 class MovieRepositoryTest: BaseTest() {
     private lateinit var movieRepository: MovieRepository
@@ -31,4 +32,4 @@ class MovieRepositoryTest: BaseTest() {
             Truth.assertThat(it.size).isAtLeast(1)
         }
     }
-}
+}*/

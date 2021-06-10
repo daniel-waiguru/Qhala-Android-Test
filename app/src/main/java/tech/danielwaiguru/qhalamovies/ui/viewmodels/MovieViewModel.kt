@@ -28,7 +28,7 @@ class MovieViewModel @Inject constructor(
         fetchPopularMovies()
         fetchCachedData()
     }
-    private fun fetchPopularMovies() {
+    fun fetchPopularMovies() {
         viewModelScope.launch {
             popularMovieUseCase.invoke()
                 .onStart {
@@ -46,7 +46,7 @@ class MovieViewModel @Inject constructor(
                 }
         }
     }
-    private fun fetchCachedData() {
+    fun fetchCachedData() {
         viewModelScope.launch {
             fetchLocalDataUseCase.invoke()
                     .catch { exception ->

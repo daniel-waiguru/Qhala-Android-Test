@@ -6,6 +6,7 @@ import tech.danielwaiguru.domain.use_cases.FetchLocalDataUseCase
 import tech.danielwaiguru.domain.use_cases.GetPopularMovieUseCase
 import tech.danielwaiguru.domain.use_cases.StoreMovieUseCase
 
+@Suppress("UNCHECKED_CAST")
 class MovieViewModelFactory(
     private val popularMovieUseCase: GetPopularMovieUseCase,
     private val storeUseCase: StoreMovieUseCase,
