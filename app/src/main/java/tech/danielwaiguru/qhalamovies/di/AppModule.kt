@@ -8,6 +8,7 @@ import tech.danielwaiguru.domain.repository.MovieRepository
 import tech.danielwaiguru.domain.use_cases.FetchLocalDataUseCase
 import tech.danielwaiguru.domain.use_cases.GetMovieDetailsUseCase
 import tech.danielwaiguru.domain.use_cases.GetPopularMovieUseCase
+import tech.danielwaiguru.domain.use_cases.StoreMovieUseCase
 import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieDetailViewModelFactory
 import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieViewModelFactory
 import javax.inject.Singleton
@@ -32,8 +33,16 @@ object AppModule {
     }
     @Singleton
     @Provides
-    fun provideViewModelFactory(popularMovieUseCase: GetPopularMovieUseCase): MovieViewModelFactory {
-        return MovieViewModelFactory(popularMovieUseCase)
+    fun provideStoreMovieUseCase(movieRepo: MovieRepository): StoreMovieUseCase {
+        return StoreMovieUseCase(movieRepo)
+    }
+    @Singleton
+    @Provides
+    fun provideViewModelFactory(
+            popularMovieUseCase: GetPopularMovieUseCase,
+            storeUseCase: StoreMovieUseCase,
+            localDataUseCase: FetchLocalDataUseCase): MovieViewModelFactory {
+        return MovieViewModelFactory(popularMovieUseCase, storeUseCase, localDataUseCase)
     }
     @Singleton
     @Provides
