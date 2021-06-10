@@ -34,8 +34,9 @@ The app is build with MVVM clean architeture with multimodules taking into coond
 
 ### Unit Tests
 Unit test tests Dao, ViewModels and Repository
-<img src="/art/dao.png" width="260">&emsp;
-<img src="/art/dao_local.png" width="260">&emsp;
-
-<img src="/art/details_test.png" width="260">&emsp;
+<img src="/art/dao.png" >&emsp;
+<br>
+<img src="/art/dao_local.png" >&emsp;
+<br>
+<img src="/art/details_test.png" >&emsp;
 
