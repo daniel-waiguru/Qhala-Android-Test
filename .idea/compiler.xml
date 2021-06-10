@@ -2,9 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
-      <module name="QhalaMovies.app" target="1.8" />
-      <module name="QhalaMovies.data-local" target="1.8" />
-      <module name="QhalaMovies.data-remote" target="1.8" />
+      <module name="QhalaMovies.app" target="11" />
+      <module name="QhalaMovies.data-local" target="11" />
+      <module name="QhalaMovies.data-remote" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
