@@ -1,5 +1,6 @@
 package tech.danielwaiguru.qhalamovies.ui.movie_details
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -22,6 +23,7 @@ class MovieDetailViewModel @Inject constructor(
             getMovie(movieId)
         }
     }
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private fun getMovie(movieId: Int) {
         viewModelScope.launch {
             detailsUseCase(movieId)
