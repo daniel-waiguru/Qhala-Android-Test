@@ -1,4 +1,4 @@
-package tech.danielwaiguru.qhalamovies.di
+package tech.danielwaiguru.data_local.di
 
 import android.content.Context
 import androidx.room.Room
@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import tech.danielwaiguru.data_local.dao.MovieDao
 import tech.danielwaiguru.data_local.database.MovieDatabase
-import tech.danielwaiguru.qhalamovies.common.Constants.DB_NAME
+import tech.danielwaiguru.data_local.utils.Constants.DB_NAME
 import javax.inject.Singleton
 
 @Module

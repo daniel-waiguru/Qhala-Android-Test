@@ -1,7 +1,7 @@
-package tech.danielwaiguru.qhalamovies.ui.views.main
+package tech.danielwaiguru.qhalamovies.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import tech.danielwaiguru.qhalamovies.R
 @AndroidEntryPoint

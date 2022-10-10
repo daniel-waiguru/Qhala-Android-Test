@@ -3,11 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
-
+    <data>
+        <variable
+            name="movieAdapter"
+            type="tech.danielwaiguru.qhalamovies.ui.movie_list.adapter.MovieAdapter" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.views.movie_list.MovieFragment">
+        tools:context=".ui.movie_list.MovieFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/moviesRv"
@@ -15,6 +19,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:orientation="vertical"
+            android:adapter="@{movieAdapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

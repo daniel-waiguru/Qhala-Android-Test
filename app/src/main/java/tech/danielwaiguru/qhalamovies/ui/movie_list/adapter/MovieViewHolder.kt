@@ -1,4 +1,4 @@
-package tech.danielwaiguru.qhalamovies.ui.adapter
+package tech.danielwaiguru.qhalamovies.ui.movie_list.adapter
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package tech.danielwaiguru.qhalamovies.ui.views.movie_list
+package tech.danielwaiguru.qhalamovies.ui.movie_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,27 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import tech.danielwaiguru.domain.common.ResultWrapper
 import tech.danielwaiguru.qhalamovies.R
 import tech.danielwaiguru.qhalamovies.common.extensions.gone
 import tech.danielwaiguru.qhalamovies.common.extensions.showToast
 import tech.danielwaiguru.qhalamovies.common.extensions.visible
 import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieBinding
-import tech.danielwaiguru.qhalamovies.models.ResultWrapper
-import tech.danielwaiguru.qhalamovies.ui.adapter.MovieAdapter
-import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieViewModel
-import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieViewModelFactory
-import javax.inject.Inject
+import tech.danielwaiguru.qhalamovies.ui.movie_list.adapter.MovieAdapter
 
 @AndroidEntryPoint
-class MovieFragment : Fragment(),MovieAdapter.MovieClickListener {
+class MovieFragment : Fragment(), MovieAdapter.MovieClickListener {
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter(this)
     }
-    @Inject
-    lateinit var movieViewModelFactory: MovieViewModelFactory
-    private val movieViewModel: MovieViewModel by viewModels { movieViewModelFactory }
+    private val movieViewModel: MovieViewModel by viewModels()
     override fun onStart() {
         super.onStart()
         (activity as AppCompatActivity).supportActionBar?.show()
@@ -46,16 +41,25 @@ class MovieFragment : Fragment(),MovieAdapter.MovieClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
+    }
+
+    private fun initUI() {
+        initBinders()
         subscribers()
     }
+
+    private fun initBinders() {
+        binding.movieAdapter = movieAdapter
+    }
+
     private fun subscribers() {
         with(binding) {
-            movieViewModel.responseState.observe(viewLifecycleOwner, { responseState ->
+            movieViewModel.responseState.observe(viewLifecycleOwner) { responseState ->
                 when (responseState) {
                     is ResultWrapper.Success -> {
                         loadingProgress.gone()
-                        movieAdapter.submitList(responseState.data)
-                        moviesRv.adapter = movieAdapter
+                        this@MovieFragment.movieAdapter.submitList(responseState.data)
                     }
                     is ResultWrapper.Loading -> {
                         loadingProgress.visible()
@@ -65,7 +69,7 @@ class MovieFragment : Fragment(),MovieAdapter.MovieClickListener {
                         requireContext().showToast(responseState.errorMessage.toString())
                     }
                 }
-            })
+            }
         }
     }
 
