@@ -2,19 +2,18 @@
 buildscript {
     ext {
         kotlin_version = '1.6.21'
-        lifecycle_version = "2.3.1"
+        lifecycle_version = "2.5.1"
         nav_version = '2.5.2'
         room_version = "2.4.3"
-        glide_version = "4.12.0"
+        glide_version = "4.13.0"
         hilt_version = '2.40.1'
         retrofit_version = "2.9.0"
         moshi_version = "1.12.0"
         coroutines_version = "1.4.3"
-        okhttp_version = "4.9.1"
+        okhttp_version = "5.0.0-alpha.3"
     }
     repositories {
         google()
-        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -35,7 +34,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
