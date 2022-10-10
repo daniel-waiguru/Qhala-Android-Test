@@ -1,4 +1,4 @@
-package tech.danielwaiguru.qhalamovies.models
+package tech.danielwaiguru.domain.common
 
 sealed class ResultWrapper<out T> {
     data class Success<T>(val data: T): ResultWrapper<T>()

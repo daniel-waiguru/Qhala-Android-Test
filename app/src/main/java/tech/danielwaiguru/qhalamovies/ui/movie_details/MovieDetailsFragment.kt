@@ -1,4 +1,4 @@
-package tech.danielwaiguru.qhalamovies.ui.views.movie_details
+package tech.danielwaiguru.qhalamovies.ui.movie_details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,9 +14,7 @@ import tech.danielwaiguru.qhalamovies.R
 import tech.danielwaiguru.qhalamovies.common.extensions.gone
 import tech.danielwaiguru.qhalamovies.common.extensions.visible
 import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieDetailsBinding
-import tech.danielwaiguru.qhalamovies.models.ResultWrapper
-import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieDetailViewModel
-import javax.inject.Inject
+import tech.danielwaiguru.domain.common.ResultWrapper
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {

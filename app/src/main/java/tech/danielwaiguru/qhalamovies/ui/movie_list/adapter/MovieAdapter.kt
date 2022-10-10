@@ -1,4 +1,4 @@
-package tech.danielwaiguru.qhalamovies.ui.adapter
+package tech.danielwaiguru.qhalamovies.ui.movie_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,8 @@ import tech.danielwaiguru.domain.models.Movie
 import tech.danielwaiguru.qhalamovies.R
 
 class MovieAdapter(
-    private val clickListener: MovieClickListener): ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
+    private val clickListener: MovieClickListener
+): ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             DataBindingUtil.inflate(
