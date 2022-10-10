@@ -12,7 +12,7 @@ class MovieViewModelFactory(
     private val storeUseCase: StoreMovieUseCase,
     private val localDataUseCase: FetchLocalDataUseCase
 ): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MovieViewModel::class.java) -> {
                 MovieViewModel(popularMovieUseCase, storeUseCase, localDataUseCase) as T
