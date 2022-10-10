@@ -8,13 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import tech.danielwaiguru.domain.common.ResultWrapper
 import tech.danielwaiguru.qhalamovies.R
 import tech.danielwaiguru.qhalamovies.common.extensions.gone
 import tech.danielwaiguru.qhalamovies.common.extensions.visible
 import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieDetailsBinding
-import tech.danielwaiguru.domain.common.ResultWrapper
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
@@ -36,18 +35,11 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribers()
-        fetchMovieDetails()
     }
-    private fun fetchMovieDetails() {
-        detailViewModel.fetchMovieDetails(getArgs())
-    }
-    private fun getArgs(): Int {
-        val args: MovieDetailsFragmentArgs by navArgs()
-        return args.mId
-    }
+
     private fun subscribers() {
-        detailViewModel.movieState.observe(viewLifecycleOwner, { response ->
-            when(response) {
+        detailViewModel.movieState.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ResultWrapper.Error -> {
                     binding.loadingProgress.gone()
                 }
@@ -59,6 +51,6 @@ class MovieDetailsFragment : Fragment() {
                     binding.movie = response.data
                 }
             }
-        })
+        }
     }
 }

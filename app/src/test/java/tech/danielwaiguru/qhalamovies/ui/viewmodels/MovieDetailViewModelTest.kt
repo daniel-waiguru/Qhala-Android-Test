@@ -1,6 +1,7 @@
 package tech.danielwaiguru.qhalamovies.ui.viewmodels
 
-import kotlinx.coroutines.test.runBlockingTest
+import androidx.lifecycle.SavedStateHandle
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -15,11 +16,13 @@ class MovieDetailViewModelTest: BaseViewModelTest() {
 
     @Before
     fun setup() {
-        detailViewModel = MovieDetailViewModel(detailsUseCase)
+        val savedStateHandle = SavedStateHandle().apply {
+            set(MovieDetailViewModel.MOVIE_ID_KEY, 1)
+        }
+        detailViewModel = MovieDetailViewModel(detailsUseCase, savedStateHandle)
     }
     @Test
-    fun `call to fetch particular movie details`() = runBlockingTest {
-        detailViewModel.fetchMovieDetails(1)
+    fun `call to fetch particular movie details invokes use case with correct id`() = runTest {
         verify(detailsUseCase).invoke(1)
     }
 }
