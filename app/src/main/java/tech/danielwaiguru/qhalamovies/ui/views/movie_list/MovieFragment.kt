@@ -18,8 +18,6 @@ import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieBinding
 import tech.danielwaiguru.qhalamovies.models.ResultWrapper
 import tech.danielwaiguru.qhalamovies.ui.adapter.MovieAdapter
 import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieViewModel
-import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieViewModelFactory
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieFragment : Fragment(),MovieAdapter.MovieClickListener {
@@ -28,9 +26,7 @@ class MovieFragment : Fragment(),MovieAdapter.MovieClickListener {
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter(this)
     }
-    @Inject
-    lateinit var movieViewModelFactory: MovieViewModelFactory
-    private val movieViewModel: MovieViewModel by viewModels { movieViewModelFactory }
+    private val movieViewModel: MovieViewModel by viewModels()
     override fun onStart() {
         super.onStart()
         (activity as AppCompatActivity).supportActionBar?.show()

@@ -12,20 +12,16 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import tech.danielwaiguru.qhalamovies.R
 import tech.danielwaiguru.qhalamovies.common.extensions.gone
-import tech.danielwaiguru.qhalamovies.common.extensions.showToast
 import tech.danielwaiguru.qhalamovies.common.extensions.visible
 import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieDetailsBinding
 import tech.danielwaiguru.qhalamovies.models.ResultWrapper
 import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieDetailViewModel
-import tech.danielwaiguru.qhalamovies.ui.viewmodels.MovieDetailViewModelFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailsBinding
-    @Inject
-    lateinit var detailViewModelFactory: MovieDetailViewModelFactory
-    private val detailViewModel: MovieDetailViewModel by viewModels { detailViewModelFactory }
+    private val detailViewModel: MovieDetailViewModel by viewModels()
     override fun onStart() {
         super.onStart()
         (activity as AppCompatActivity).supportActionBar?.hide()
