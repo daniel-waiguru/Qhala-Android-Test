@@ -1,27 +1,30 @@
 package tech.danielwaiguru.qhalamovies.ui.movie_details
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import tech.danielwaiguru.domain.common.ResultWrapper
 import tech.danielwaiguru.domain.models.Movie
 import tech.danielwaiguru.domain.use_cases.GetMovieDetailsUseCase
-import tech.danielwaiguru.domain.common.ResultWrapper
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-        private val detailsUseCase: GetMovieDetailsUseCase
+        private val detailsUseCase: GetMovieDetailsUseCase,
+        savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val _movieState: MutableLiveData<ResultWrapper<Movie>> = MutableLiveData()
     val movieState: LiveData<ResultWrapper<Movie>> get() = _movieState
-    fun fetchMovieDetails(mId: Int) {
+    init {
+        savedStateHandle.get<Int>(MOVIE_ID_KEY)?.let { movieId ->
+            getMovie(movieId)
+        }
+    }
+    private fun getMovie(movieId: Int) {
         viewModelScope.launch {
-            detailsUseCase.invoke(mId)
+            detailsUseCase(movieId)
                     .onStart {
                         //emit loading state
                         _movieState.value = ResultWrapper.Loading
@@ -34,5 +37,8 @@ class MovieDetailViewModel @Inject constructor(
                         _movieState.value = ResultWrapper.Success(it)
                     }
         }
+    }
+    companion object {
+        const val MOVIE_ID_KEY = "movieId"
     }
 }

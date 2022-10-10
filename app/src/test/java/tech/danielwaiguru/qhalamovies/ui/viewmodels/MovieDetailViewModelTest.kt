@@ -19,7 +19,7 @@ class MovieDetailViewModelTest: BaseViewModelTest() {
     }
     @Test
     fun `call to fetch particular movie details`() = runBlockingTest {
-        detailViewModel.fetchMovieDetails(1)
+        detailViewModel.getMovie(1)
         verify(detailsUseCase).invoke(1)
     }
 }
