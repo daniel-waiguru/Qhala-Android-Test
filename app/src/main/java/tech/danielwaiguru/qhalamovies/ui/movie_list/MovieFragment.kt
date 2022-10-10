@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import tech.danielwaiguru.domain.common.ResultWrapper
 import tech.danielwaiguru.qhalamovies.R
 import tech.danielwaiguru.qhalamovies.common.extensions.gone
 import tech.danielwaiguru.qhalamovies.common.extensions.showToast
 import tech.danielwaiguru.qhalamovies.common.extensions.visible
 import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieBinding
-import tech.danielwaiguru.domain.common.ResultWrapper
 import tech.danielwaiguru.qhalamovies.ui.movie_list.adapter.MovieAdapter
 
 @AndroidEntryPoint
@@ -41,16 +41,25 @@ class MovieFragment : Fragment(), MovieAdapter.MovieClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
+    }
+
+    private fun initUI() {
+        initBinders()
         subscribers()
     }
+
+    private fun initBinders() {
+        binding.movieAdapter = movieAdapter
+    }
+
     private fun subscribers() {
         with(binding) {
-            movieViewModel.responseState.observe(viewLifecycleOwner, { responseState ->
+            movieViewModel.responseState.observe(viewLifecycleOwner) { responseState ->
                 when (responseState) {
                     is ResultWrapper.Success -> {
                         loadingProgress.gone()
-                        movieAdapter.submitList(responseState.data)
-                        moviesRv.adapter = movieAdapter
+                        this@MovieFragment.movieAdapter.submitList(responseState.data)
                     }
                     is ResultWrapper.Loading -> {
                         loadingProgress.visible()
@@ -60,7 +69,7 @@ class MovieFragment : Fragment(), MovieAdapter.MovieClickListener {
                         requireContext().showToast(responseState.errorMessage.toString())
                     }
                 }
-            })
+            }
         }
     }
 
