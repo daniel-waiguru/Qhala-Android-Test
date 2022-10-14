@@ -9,17 +9,17 @@ import tech.danielwaiguru.domain.use_cases.FetchLocalDataUseCase
 import tech.danielwaiguru.domain.use_cases.GetPopularMovieUseCase
 import tech.danielwaiguru.domain.use_cases.StoreMovieUseCase
 import tech.danielwaiguru.qhalamovies.base.BaseViewModelTest
-import tech.danielwaiguru.qhalamovies.ui.movie_list.MovieViewModel
+import tech.danielwaiguru.qhalamovies.ui.movie_list.MoviesViewModel
 
 class MovieViewModelTest: BaseViewModelTest() {
-    private lateinit var movieViewModel: MovieViewModel
+    private lateinit var moviesViewModel: MoviesViewModel
     private val popularMovieUseCase: GetPopularMovieUseCase = mock()
     private val storeUseCase: StoreMovieUseCase = mock()
     private val fetchLocalDataUseCase: FetchLocalDataUseCase = mock()
 
     @Before
     fun setup() {
-        movieViewModel = MovieViewModel(popularMovieUseCase, storeUseCase, fetchLocalDataUseCase)
+        moviesViewModel = MoviesViewModel(popularMovieUseCase, storeUseCase, fetchLocalDataUseCase)
     }
     /*@Test
     fun `call to fetch a list of movies`() = runBlockingTest {
@@ -29,7 +29,7 @@ class MovieViewModelTest: BaseViewModelTest() {
 
     @Test
     fun `call to fetch local movies`() = runBlockingTest {
-        movieViewModel.fetchCachedData()
+        moviesViewModel.fetchCachedData()
         verify(popularMovieUseCase).invoke()
     }
 }

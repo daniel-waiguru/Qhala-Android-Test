@@ -3,14 +3,14 @@ package tech.danielwaiguru.qhalamovies.ui.movie_list.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import tech.danielwaiguru.domain.models.Movie
 import tech.danielwaiguru.qhalamovies.R
 
 class MovieAdapter(
     private val clickListener: MovieClickListener
-): ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
+): PagingDataAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             DataBindingUtil.inflate(
@@ -21,10 +21,8 @@ class MovieAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = getItem(position)
-        holder.bindMovieItem(movie, holder.itemView.context)
-        holder.itemView.setOnClickListener {
-            clickListener.onMovieClicked(movie.id)
+        getItem(position)?.let { movie ->
+            holder.bindMovieItem(movie, clickListener)
         }
     }
 

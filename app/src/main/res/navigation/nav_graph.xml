@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/movieFragment"
-        android:name="tech.danielwaiguru.qhalamovies.ui.movie_list.MovieFragment"
+        android:name="tech.danielwaiguru.qhalamovies.ui.movie_list.MoviesFragment"
         android:label="MovieFragment" >
         <action
             android:id="@+id/action_movieFragment_to_movieDetailsFragment"
@@ -13,7 +13,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_bottom"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_bottom" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"

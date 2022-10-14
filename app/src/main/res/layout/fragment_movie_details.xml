@@ -19,7 +19,7 @@
             android:id="@+id/largerPoster"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:alpha="0.3"
             app:loadImageFromUrl="@{movie.posterPath}"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
@@ -92,31 +92,40 @@
                 app:layout_constraintStart_toEndOf="@id/posterCard"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Motor Combat" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin"
                 android:orientation="horizontal"
+                android:id="@+id/hScroll"
                 app:layout_constraintStart_toEndOf="@id/posterCard"
                 app:layout_constraintTop_toBottomOf="@id/movieTitle">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/voteCount"
-                    android:text="@{String.format(@string/vote_count, movie.voteCount)}"
-                    android:clickable="false"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toEndOf="@id/posterCard"
+                    app:layout_constraintTop_toBottomOf="@id/movieTitle">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/popularity"
-                    android:clickable="false"
-                    android:text="@{String.format(@string/release_date, movie.releaseDate)}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/voteCount"
+                        android:text="@{String.format(@string/vote_count, movie.voteCount)}"
+                        android:clickable="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/popularity"
+                        android:clickable="false"
+                        android:text="@{String.format(@string/release_date, movie.releaseDate)}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -132,7 +141,7 @@
                 android:layout_marginEnd="@dimen/margin"
                 android:layout_marginBottom="@dimen/margin"
                 app:layout_constraintStart_toEndOf="@id/posterCard"
-                app:layout_constraintTop_toBottomOf="@id/chipGroup" />
+                app:layout_constraintTop_toBottomOf="@id/hScroll" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

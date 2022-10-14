@@ -8,24 +8,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import tech.danielwaiguru.domain.common.ResultWrapper
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import tech.danielwaiguru.qhalamovies.R
-import tech.danielwaiguru.qhalamovies.common.extensions.gone
-import tech.danielwaiguru.qhalamovies.common.extensions.showToast
-import tech.danielwaiguru.qhalamovies.common.extensions.visible
-import tech.danielwaiguru.qhalamovies.databinding.FragmentMovieBinding
+import tech.danielwaiguru.qhalamovies.databinding.FragmentMoviesBinding
 import tech.danielwaiguru.qhalamovies.ui.movie_list.adapter.MovieAdapter
 
 @AndroidEntryPoint
-class MovieFragment : Fragment(), MovieAdapter.MovieClickListener {
-    private var _binding: FragmentMovieBinding? = null
+class MoviesFragment : Fragment(), MovieAdapter.MovieClickListener {
+    private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter(this)
     }
-    private val movieViewModel: MovieViewModel by viewModels()
+    private val moviesViewModel: MoviesViewModel by viewModels()
     override fun onStart() {
         super.onStart()
         (activity as AppCompatActivity).supportActionBar?.show()
@@ -35,7 +36,7 @@ class MovieFragment : Fragment(), MovieAdapter.MovieClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_movie, container, false)
+            .inflate(inflater, R.layout.fragment_movies, container, false)
         return binding.root
     }
 
@@ -54,22 +55,12 @@ class MovieFragment : Fragment(), MovieAdapter.MovieClickListener {
     }
 
     private fun subscribers() {
-        with(binding) {
-            movieViewModel.responseState.observe(viewLifecycleOwner) { responseState ->
-                when (responseState) {
-                    is ResultWrapper.Success -> {
-                        loadingProgress.gone()
-                        this@MovieFragment.movieAdapter.submitList(responseState.data)
-                    }
-                    is ResultWrapper.Loading -> {
-                        loadingProgress.visible()
-                    }
-                    is ResultWrapper.Error -> {
-                        loadingProgress.gone()
-                        requireContext().showToast(responseState.errorMessage.toString())
-                    }
+        viewLifecycleOwner.lifecycleScope.launch {
+            moviesViewModel.getPopularMovies()
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collectLatest {
+                    movieAdapter.submitData(it)
                 }
-            }
         }
     }
 
@@ -79,7 +70,7 @@ class MovieFragment : Fragment(), MovieAdapter.MovieClickListener {
 
     private fun navToDetailsScreen(mId: Int) {
         findNavController().navigate(
-            MovieFragmentDirections.actionMovieFragmentToMovieDetailsFragment(mId)
+            MoviesFragmentDirections.actionMovieFragmentToMovieDetailsFragment(mId)
         )
     }
 }

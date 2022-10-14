@@ -44,6 +44,8 @@ dependencies {
     //OkHttp
     api "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
     //Dagger Hilt
     api "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
