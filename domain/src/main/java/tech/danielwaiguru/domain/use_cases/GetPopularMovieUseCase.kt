@@ -1,7 +1,7 @@
 package tech.danielwaiguru.domain.use_cases
 
-import tech.danielwaiguru.domain.repository.MovieRepository
+import tech.danielwaiguru.domain.repository.MoviesRepository
 
-class GetPopularMovieUseCase constructor(private val movieRepo: MovieRepository) {
-    suspend operator fun invoke() = movieRepo.getPopularMovies()
+class GetPopularMovieUseCase(private val movieRepo: MoviesRepository) {
+    operator fun invoke() = movieRepo.getMovies()
 }

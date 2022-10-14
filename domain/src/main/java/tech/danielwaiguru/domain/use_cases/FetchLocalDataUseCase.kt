@@ -1,7 +1,7 @@
 package tech.danielwaiguru.domain.use_cases
 
-import tech.danielwaiguru.domain.repository.MovieRepository
+import tech.danielwaiguru.domain.repository.MoviesRepository
 
-class FetchLocalDataUseCase(private val movieRepository: MovieRepository) {
-    suspend operator fun invoke() = movieRepository.fetCachedData()
+class FetchLocalDataUseCase(private val moviesRepository: MoviesRepository) {
+    suspend operator fun invoke() = moviesRepository.fetCachedData()
 }

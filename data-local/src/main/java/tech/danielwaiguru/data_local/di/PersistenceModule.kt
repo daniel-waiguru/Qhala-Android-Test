@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import tech.danielwaiguru.data_local.dao.MovieDao
+import tech.danielwaiguru.data_local.dao.RemoteKeyDao
 import tech.danielwaiguru.data_local.database.MovieDatabase
 import tech.danielwaiguru.data_local.utils.Constants.DB_NAME
 import javax.inject.Singleton
@@ -25,4 +26,8 @@ object PersistenceModule {
     @Singleton
     @Provides
     fun provideMovieDao(database: MovieDatabase): MovieDao = database.getMovieDao()
+
+    @Singleton
+    @Provides
+    fun provideRemoteDao(database: MovieDatabase): RemoteKeyDao = database.getRemoteKeyDao()
 }
